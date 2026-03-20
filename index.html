@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Rede Anônima</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Tela de Cadastro -->
+<div id="cadastro">
+  <h1>Rede Anônima</h1>
+  <p>Sem seguidores. Sem fama. Só conteúdo.</p>
+
+  <input type="text" placeholder="Nome completo">
+  <input type="email" placeholder="E-mail">
+  <input type="date">
+  <input type="text" placeholder="Nome de usuário">
+  <input type="file">
+
+  <button onclick="entrar()">Entrar</button>
+</div>
+
+<!-- Painel -->
+<div id="painel" class="hidden">
+
+  <h2>Feed Aleatório</h2>
+
+  <!-- Stories -->
+  <div class="stories" id="stories"></div>
+
+  <!-- Feed -->
+  <div id="feed"></div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
