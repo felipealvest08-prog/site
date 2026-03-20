@@ -1,81 +1,106 @@
-body {
-  font-family: Arial;
-  margin: 0;
-  text-align: center;
-  background: #111;
-  color: white;
-  transition: 0.3s;
+let temaEscuro = true;
+
+function entrar() {
+  document.getElementById("cadastro").classList.add("hidden");
+  document.getElementById("painel").classList.remove("hidden");
+
+  gerarStories();
+  gerarFeed();
 }
 
-.light {
-  background: #f5f5f5;
-  color: black;
+// alternar tema
+function toggleTema() {
+  document.body.classList.toggle("light");
 }
 
-input {
-  display: block;
-  margin: 10px auto;
-  padding: 10px;
-  width: 250px;
+// avatar automático
+function gerarAvatar(nome) {
+  return nome ? nome.charAt(0).toUpperCase() : "?";
 }
 
-button {
-  padding: 10px;
-  margin: 10px;
-  cursor: pointer;
+// stories
+function gerarStories() {
+  const container = document.getElementById("stories");
+
+  for (let i = 0; i < 10; i++) {
+    let story = document.createElement("div");
+    story.classList.add("story");
+
+    story.style.background = `hsl(${Math.random() * 360},70%,50%)`;
+
+    story.onclick = () => {
+      alert("Story aleatório 👀");
+    };
+
+    container.appendChild(story);
+  }
 }
 
-/* esconder */
-.hidden {
-  display: none;
+// atualizar feed
+function atualizarFeed() {
+  document.getElementById("feed").innerHTML = "";
+  gerarFeed();
 }
 
-/* topo */
-.topo {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
+// gerar feed
+function gerarFeed() {
+  const feed = document.getElementById("feed");
 
-/* stories */
-.stories {
-  display: flex;
-  overflow-x: auto;
-}
+  const tipos = ["img", "video"];
 
-.story {
-  min-width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  margin: 5px;
-  cursor: pointer;
-}
+  for (let i = 0; i < 8; i++) {
+    let post = document.createElement("div");
+    post.classList.add("post");
 
-/* feed */
-.post {
-  background: #222;
-  margin: 15px auto;
-  padding: 10px;
-  border-radius: 10px;
-  width: 300px;
-}
+    let tipo = tipos[Math.floor(Math.random() * tipos.length)];
 
-.light .post {
-  background: #ddd;
-}
+    // mídia
+    if (tipo === "img") {
+      let img = document.createElement("img");
+      img.src = `https://picsum.photos/300/200?random=${Math.random()}`;
+      post.appendChild(img);
+    } else {
+      let video = document.createElement("video");
+      video.src = "https://www.w3schools.com/html/mov_bbb.mp4";
+      video.controls = true;
+      post.appendChild(video);
+    }
 
-.post img, .post video {
-  width: 100%;
-  border-radius: 10px;
-}
+    // ações
+    let likes = 0;
 
-.acoes {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 5px;
-}
+    let acoes = document.createElement("div");
+    acoes.classList.add("acoes");
 
-.comentarios {
-  text-align: left;
-  font-size: 14px;
+    let btnLike = document.createElement("button");
+    btnLike.innerText = "❤️ 0";
+
+    btnLike.onclick = () => {
+      likes++;
+      btnLike.innerText = "❤️ " + likes;
+    };
+
+    let btnComentar = document.createElement("button");
+    btnComentar.innerText = "💬";
+
+    let comentariosDiv = document.createElement("div");
+    comentariosDiv.classList.add("comentarios");
+
+    btnComentar.onclick = () => {
+      let texto = prompt("Digite um comentário:");
+      if (texto) {
+        let p = document.createElement("p");
+        p.innerText = "👤 " + texto;
+        comentariosDiv.appendChild(p);
+      }
+    };
+
+    acoes.appendChild(btnLike);
+    acoes.appendChild(btnComentar);
+
+    post.appendChild(acoes);
+    post.appendChild(comentariosDiv);
+
+    feed.appendChild(post);
+  }
 }
