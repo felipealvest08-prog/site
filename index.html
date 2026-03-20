@@ -7,15 +7,15 @@
 </head>
 <body>
 
-<!-- Tela de Cadastro -->
+<!-- Cadastro -->
 <div id="cadastro">
   <h1>Rede Anônima</h1>
-  <p>Sem seguidores. Sem fama. Só conteúdo.</p>
+  <p>Sem seguidores. Sem fama.</p>
 
-  <input type="text" placeholder="Nome completo">
+  <input id="nome" type="text" placeholder="Nome completo">
   <input type="email" placeholder="E-mail">
   <input type="date">
-  <input type="text" placeholder="Nome de usuário">
+  <input id="usuario" type="text" placeholder="Usuário">
   <input type="file">
 
   <button onclick="entrar()">Entrar</button>
@@ -24,10 +24,16 @@
 <!-- Painel -->
 <div id="painel" class="hidden">
 
-  <h2>Feed Aleatório</h2>
+  <div class="topo">
+    <h2>Feed</h2>
+    <button onclick="toggleTema()">🌙/☀️</button>
+  </div>
 
   <!-- Stories -->
   <div class="stories" id="stories"></div>
+
+  <!-- Botão atualizar -->
+  <button onclick="atualizarFeed()">🔄 Atualizar Feed</button>
 
   <!-- Feed -->
   <div id="feed"></div>
