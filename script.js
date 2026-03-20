@@ -1,49 +1,81 @@
-function entrar() {
-  document.getElementById("cadastro").classList.add("hidden");
-  document.getElementById("painel").classList.remove("hidden");
-
-  gerarStories();
-  gerarFeed();
+body {
+  font-family: Arial;
+  margin: 0;
+  text-align: center;
+  background: #111;
+  color: white;
+  transition: 0.3s;
 }
 
-// Stories aleatórios
-function gerarStories() {
-  const container = document.getElementById("stories");
-
-  for (let i = 0; i < 10; i++) {
-    let story = document.createElement("div");
-    story.classList.add("story");
-
-    // cor aleatória
-    story.style.background = `hsl(${Math.random() * 360}, 70%, 50%)`;
-
-    container.appendChild(story);
-  }
+.light {
+  background: #f5f5f5;
+  color: black;
 }
 
-// Feed aleatório
-function gerarFeed() {
-  const feed = document.getElementById("feed");
+input {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 250px;
+}
 
-  const tipos = ["img", "video"];
+button {
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
 
-  for (let i = 0; i < 10; i++) {
-    let post = document.createElement("div");
-    post.classList.add("post");
+/* esconder */
+.hidden {
+  display: none;
+}
 
-    let tipo = tipos[Math.floor(Math.random() * tipos.length)];
+/* topo */
+.topo {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 
-    if (tipo === "img") {
-      let img = document.createElement("img");
-      img.src = `https://picsum.photos/300/200?random=${i}`;
-      post.appendChild(img);
-    } else {
-      let video = document.createElement("video");
-      video.src = "https://www.w3schools.com/html/mov_bbb.mp4";
-      video.controls = true;
-      post.appendChild(video);
-    }
+/* stories */
+.stories {
+  display: flex;
+  overflow-x: auto;
+}
 
-    feed.appendChild(post);
-  }
+.story {
+  min-width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin: 5px;
+  cursor: pointer;
+}
+
+/* feed */
+.post {
+  background: #222;
+  margin: 15px auto;
+  padding: 10px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+.light .post {
+  background: #ddd;
+}
+
+.post img, .post video {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.acoes {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.comentarios {
+  text-align: left;
+  font-size: 14px;
 }
