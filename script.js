@@ -1,106 +1,108 @@
-let temaEscuro = true;
+let usuario = {
+  nome: "",
+  foto: ""
+};
 
+// LOGIN
 function entrar() {
-  document.getElementById("cadastro").classList.add("hidden");
-  document.getElementById("painel").classList.remove("hidden");
+  usuario.nome = document.getElementById("nome").value;
+
+  let file = document.getElementById("foto").files[0];
+  if (file) {
+    usuario.foto = URL.createObjectURL(file);
+  }
+
+  document.getElementById("login").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
 
   gerarStories();
   gerarFeed();
 }
 
-// alternar tema
+// TEMA
 function toggleTema() {
   document.body.classList.toggle("light");
 }
 
-// avatar automático
-function gerarAvatar(nome) {
-  return nome ? nome.charAt(0).toUpperCase() : "?";
-}
-
-// stories
+// STORIES estilo Instagram
 function gerarStories() {
   const container = document.getElementById("stories");
+  container.innerHTML = "";
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 8; i++) {
     let story = document.createElement("div");
     story.classList.add("story");
+    story.innerText = "👤";
 
-    story.style.background = `hsl(${Math.random() * 360},70%,50%)`;
-
-    story.onclick = () => {
-      alert("Story aleatório 👀");
-    };
+    story.onclick = () => alert("Visualizando story 👀");
 
     container.appendChild(story);
   }
 }
 
-// atualizar feed
+// FEED
+function gerarFeed() {
+  const feed = document.getElementById("feed");
+
+  for (let i = 0; i < 5; i++) {
+    let post = document.createElement("div");
+    post.classList.add("post");
+
+    // USER
+    let userDiv = document.createElement("div");
+    userDiv.classList.add("user");
+
+    let avatar = document.createElement("div");
+    avatar.classList.add("avatar");
+
+    if (usuario.foto) {
+      avatar.style.backgroundImage = `url(${usuario.foto})`;
+      avatar.style.backgroundSize = "cover";
+    } else {
+      avatar.innerText = usuario.nome.charAt(0);
+    }
+
+    let nome = document.createElement("span");
+    nome.innerText = usuario.nome;
+
+    userDiv.appendChild(avatar);
+    userDiv.appendChild(nome);
+
+    // IMG
+    let img = document.createElement("img");
+    img.src = `https://picsum.photos/300/200?random=${Math.random()}`;
+
+    // LIKE
+    let likes = 0;
+    let btn = document.createElement("button");
+    btn.innerText = "❤️ 0";
+
+    btn.onclick = () => {
+      likes++;
+      btn.innerText = "❤️ " + likes;
+    };
+
+    post.appendChild(userDiv);
+    post.appendChild(img);
+    post.appendChild(btn);
+
+    feed.appendChild(post);
+  }
+}
+
 function atualizarFeed() {
   document.getElementById("feed").innerHTML = "";
   gerarFeed();
 }
 
-// gerar feed
-function gerarFeed() {
-  const feed = document.getElementById("feed");
+// CHAT
+function enviarMsg() {
+  let input = document.getElementById("msg");
+  let chat = document.getElementById("chatBox");
 
-  const tipos = ["img", "video"];
+  let p = document.createElement("p");
+  p.innerText = usuario.nome + ": " + input.value;
 
-  for (let i = 0; i < 8; i++) {
-    let post = document.createElement("div");
-    post.classList.add("post");
-
-    let tipo = tipos[Math.floor(Math.random() * tipos.length)];
-
-    // mídia
-    if (tipo === "img") {
-      let img = document.createElement("img");
-      img.src = `https://picsum.photos/300/200?random=${Math.random()}`;
-      post.appendChild(img);
-    } else {
-      let video = document.createElement("video");
-      video.src = "https://www.w3schools.com/html/mov_bbb.mp4";
-      video.controls = true;
-      post.appendChild(video);
-    }
-
-    // ações
-    let likes = 0;
-
-    let acoes = document.createElement("div");
-    acoes.classList.add("acoes");
-
-    let btnLike = document.createElement("button");
-    btnLike.innerText = "❤️ 0";
-
-    btnLike.onclick = () => {
-      likes++;
-      btnLike.innerText = "❤️ " + likes;
-    };
-
-    let btnComentar = document.createElement("button");
-    btnComentar.innerText = "💬";
-
-    let comentariosDiv = document.createElement("div");
-    comentariosDiv.classList.add("comentarios");
-
-    btnComentar.onclick = () => {
-      let texto = prompt("Digite um comentário:");
-      if (texto) {
-        let p = document.createElement("p");
-        p.innerText = "👤 " + texto;
-        comentariosDiv.appendChild(p);
-      }
-    };
-
-    acoes.appendChild(btnLike);
-    acoes.appendChild(btnComentar);
-
-    post.appendChild(acoes);
-    post.appendChild(comentariosDiv);
-
-    feed.appendChild(post);
-  }
+  chat.appendChild(p);
+  input.value = "";
 }
