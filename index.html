@@ -7,46 +7,78 @@
 </head>
 <body>
 
+<!-- COOKIES -->
+<div id="cookies" class="overlay">
+  <div class="box">
+    <h2>🍪 Cookies</h2>
+    <p>Usamos cookies para melhorar sua experiência.</p>
+    <button onclick="aceitarCookies()">Aceitar</button>
+  </div>
+</div>
+
 <!-- LOGIN -->
-<div id="login">
-  <div class="login-box">
+<div id="login" class="hidden">
+  <div class="box">
     <h1>📨 Pombo Correio</h1>
-    <input id="nome" type="text" placeholder="Seu nome">
-    <input id="usuario" type="text" placeholder="Usuário">
+    <input id="nome" placeholder="Nome">
+    <input id="usuario" placeholder="Usuário">
     <input id="foto" type="file">
     <button onclick="entrar()">Entrar</button>
+  </div>
+</div>
+
+<!-- TERMOS -->
+<div id="termos" class="overlay hidden">
+  <div class="box">
+    <h2>Regras</h2>
+    <p>✔ Seja respeitoso<br>✔ Nada ilegal<br>✔ Conteúdo livre</p>
+    <button onclick="aceitarTermos()">Aceitar</button>
   </div>
 </div>
 
 <!-- APP -->
 <div id="app" class="hidden">
 
-  <!-- TOPO -->
-  <header>
-    <div class="logo">📨 Pombo Correio</div>
-    <button onclick="toggleTema()">🌙/☀️</button>
-  </header>
+<header>
+  <h1>📨 Pombo Correio</h1>
+</header>
 
-  <div class="container">
+<div class="layout">
 
-    <!-- FEED CENTRAL -->
-    <main>
-      <h2>Stories</h2>
-      <div id="stories" class="stories"></div>
+<!-- ESQUERDA -->
+<aside class="menu">
+  <button onclick="abrirPerfil()">👤 Perfil</button>
+</aside>
 
-      <h2>Feed</h2>
-      <button onclick="atualizarFeed()">Atualizar</button>
-      <div id="feed"></div>
-    </main>
+<!-- FEED -->
+<main>
+  <h3>Stories</h3>
+  <div id="stories" class="stories"></div>
 
-    <!-- CHAT DIREITA -->
-    <aside class="chat">
-      <h3>Conversas</h3>
-      <div id="chatBox"></div>
-      <input id="msg" placeholder="Digite..." />
-      <button onclick="enviarMsg()">Enviar</button>
-    </aside>
+  <h3>Feed</h3>
+  <div id="feed"></div>
+</main>
 
+<!-- CHAT -->
+<aside class="chat">
+  <h3>Conversas</h3>
+  <div id="users"></div>
+  <div id="chatBox"></div>
+  <input id="msg">
+  <button onclick="enviarMsg()">Enviar</button>
+</aside>
+
+</div>
+</div>
+
+<!-- PERFIL -->
+<div id="perfil" class="overlay hidden">
+  <div class="box">
+    <h2>Perfil</h2>
+    <img id="perfilFoto">
+    <p id="perfilNome"></p>
+    <p id="visitas"></p>
+    <button onclick="fecharPerfil()">Fechar</button>
   </div>
 </div>
 
