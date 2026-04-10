@@ -7,32 +7,13 @@
 </head>
 <body>
 
-<!-- COOKIES -->
-<div id="cookies" class="overlay">
-  <div class="box">
-    <h2>🍪 Cookies</h2>
-    <p>Usamos cookies para melhorar sua experiência.</p>
-    <button onclick="aceitarCookies()">Aceitar</button>
-  </div>
-</div>
-
 <!-- LOGIN -->
-<div id="login" class="hidden">
+<div id="login" class="tela">
   <div class="box">
     <h1>📨 Pombo Correio</h1>
-    <input id="nome" placeholder="Nome">
-    <input id="usuario" placeholder="Usuário">
+    <input id="nome" placeholder="Seu nome">
     <input id="foto" type="file">
     <button onclick="entrar()">Entrar</button>
-  </div>
-</div>
-
-<!-- TERMOS -->
-<div id="termos" class="overlay hidden">
-  <div class="box">
-    <h2>Regras</h2>
-    <p>✔ Seja respeitoso<br>✔ Nada ilegal<br>✔ Conteúdo livre</p>
-    <button onclick="aceitarTermos()">Aceitar</button>
   </div>
 </div>
 
@@ -41,14 +22,10 @@
 
 <header>
   <h1>📨 Pombo Correio</h1>
+  <button onclick="abrirPerfil()">👤</button>
 </header>
 
 <div class="layout">
-
-<!-- ESQUERDA -->
-<aside class="menu">
-  <button onclick="abrirPerfil()">👤 Perfil</button>
-</aside>
 
 <!-- FEED -->
 <main>
@@ -61,11 +38,12 @@
 
 <!-- CHAT -->
 <aside class="chat">
-  <h3>Conversas</h3>
-  <div id="users"></div>
+  <h3>Chat</h3>
   <div id="chatBox"></div>
-  <input id="msg">
-  <button onclick="enviarMsg()">Enviar</button>
+  <div class="chatInput">
+    <input id="msg" placeholder="Digite...">
+    <button onclick="enviarMsg()">Enviar</button>
+  </div>
 </aside>
 
 </div>
@@ -74,7 +52,7 @@
 <!-- PERFIL -->
 <div id="perfil" class="overlay hidden">
   <div class="box">
-    <h2>Perfil</h2>
+    <h2>Seu Perfil</h2>
     <img id="perfilFoto">
     <p id="perfilNome"></p>
     <p id="visitas"></p>
