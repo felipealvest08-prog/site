@@ -1,83 +1,120 @@
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #000;
-  color: white;
+let usuario = {
+  nome: "",
+  foto: "",
+  visitas: 0
+};
+
+let usuariosFake = [];
+
+// COOKIES
+function aceitarCookies() {
+  document.getElementById("cookies").classList.add("hidden");
+  document.getElementById("login").classList.remove("hidden");
 }
 
-.hidden { display: none; }
+// LOGIN
+function entrar() {
+  usuario.nome = document.getElementById("nome").value;
 
-.overlay {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  let file = document.getElementById("foto").files[0];
+  if (file) {
+    usuario.foto = URL.createObjectURL(file);
+  }
+
+  document.getElementById("login").classList.add("hidden");
+  document.getElementById("termos").classList.remove("hidden");
 }
 
-.box {
-  background: #111;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
+// TERMOS
+function aceitarTermos() {
+  document.getElementById("termos").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
+
+  gerarUsuarios();
+  gerarStories();
+  gerarFeed();
 }
 
-header {
-  padding: 15px;
-  border-bottom: 1px solid #333;
+// USUÁRIOS PARA CHAT
+function gerarUsuarios() {
+  const usersDiv = document.getElementById("users");
+
+  for (let i = 0; i < 5; i++) {
+    let nome = "User" + i;
+
+    let div = document.createElement("div");
+    div.innerText = nome;
+    div.onclick = () => alert("Abrindo conversa com " + nome);
+
+    usersDiv.appendChild(div);
+    usuariosFake.push(nome);
+  }
 }
 
-.layout {
-  display: flex;
+// STORIES
+function gerarStories() {
+  const container = document.getElementById("stories");
+
+  for (let i = 0; i < 8; i++) {
+    let story = document.createElement("div");
+    story.classList.add("story");
+
+    story.style.backgroundImage =
+      `url(https://picsum.photos/100?random=${Math.random()})`;
+
+    story.onclick = () => alert("Story aberto 👀");
+
+    container.appendChild(story);
+  }
 }
 
-.menu {
-  width: 20%;
-  padding: 10px;
+// FEED
+function gerarFeed() {
+  const feed = document.getElementById("feed");
+
+  for (let i = 0; i < 5; i++) {
+    let post = document.createElement("div");
+    post.classList.add("post");
+
+    let nome = document.createElement("p");
+    nome.innerText = "👤 Anônimo";
+    nome.onclick = abrirPerfil;
+
+    let img = document.createElement("img");
+    img.src = `https://picsum.photos/300/200?random=${Math.random()}`;
+
+    post.appendChild(nome);
+    post.appendChild(img);
+
+    feed.appendChild(post);
+  }
 }
 
-main {
-  width: 50%;
+// PERFIL
+function abrirPerfil() {
+  usuario.visitas++;
+
+  document.getElementById("perfil").classList.remove("hidden");
+  document.getElementById("perfilNome").innerText = usuario.nome || "Sem nome";
+  document.getElementById("perfilFoto").src = usuario.foto || "";
+  document.getElementById("visitas").innerText =
+    "Visitas: " + usuario.visitas;
 }
 
-.chat {
-  width: 30%;
-  background: #111;
-  padding: 10px;
+function fecharPerfil() {
+  document.getElementById("perfil").classList.add("hidden");
 }
 
-/* STORIES */
-.stories {
-  display: flex;
-  overflow-x: auto;
-}
+// CHAT
+function enviarMsg() {
+  let msg = document.getElementById("msg").value;
+  let chat = document.getElementById("chatBox");
 
-.story {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  margin: 5px;
-  border: 2px solid red;
-  background-size: cover;
-  cursor: pointer;
-}
+  if (!msg) return;
 
-/* POST */
-.post {
-  background: #111;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 10px;
-}
+  let p = document.createElement("p");
+  p.innerText = usuario.nome + ": " + msg;
 
-.post img {
-  width: 100%;
-}
-
-/* PERFIL */
-#perfil img {
-  width: 80px;
-  border-radius: 50%;
+  chat.appendChild(p);
+  document.getElementById("msg").value = "";
 }
