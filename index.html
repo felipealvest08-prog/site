@@ -11,8 +11,7 @@
 <div id="login" class="tela">
   <div class="box">
     <h1>📨 Pombo Correio</h1>
-    <input id="nome" placeholder="Seu nome">
-    <input id="foto" type="file">
+    <input id="nome" placeholder="Apelido (anônimo)">
     <button onclick="entrar()">Entrar</button>
   </div>
 </div>
@@ -22,42 +21,42 @@
 
 <header>
   <h1>📨 Pombo Correio</h1>
-  <button onclick="abrirPerfil()">👤</button>
 </header>
 
 <div class="layout">
 
-<!-- FEED -->
-<main>
+<!-- ESQUERDA (CONVERSAS) -->
+<aside class="conversas">
+  <h3>Conversas</h3>
+  <div id="listaConversas"></div>
+</aside>
+
+<!-- CENTRO (CHAT) -->
+<main class="chatArea">
+  <div id="chatBox"></div>
+
+  <div class="chatInput">
+    <input id="msg" placeholder="Mensagem...">
+    <button onclick="enviarMsg()">Enviar</button>
+  </div>
+</main>
+
+<!-- DIREITA (FEED + STORIES) -->
+<aside class="feedArea">
   <h3>Stories</h3>
   <div id="stories" class="stories"></div>
 
   <h3>Feed</h3>
   <div id="feed"></div>
-</main>
-
-<!-- CHAT -->
-<aside class="chat">
-  <h3>Chat</h3>
-  <div id="chatBox"></div>
-  <div class="chatInput">
-    <input id="msg" placeholder="Digite...">
-    <button onclick="enviarMsg()">Enviar</button>
-  </div>
 </aside>
 
 </div>
 </div>
 
-<!-- PERFIL -->
-<div id="perfil" class="overlay hidden">
-  <div class="box">
-    <h2>Seu Perfil</h2>
-    <img id="perfilFoto">
-    <p id="perfilNome"></p>
-    <p id="visitas"></p>
-    <button onclick="fecharPerfil()">Fechar</button>
-  </div>
+<!-- STORY VIEW -->
+<div id="storyView" class="overlay hidden">
+  <img id="storyImg">
+  <button onclick="fecharStory()">Fechar</button>
 </div>
 
 <script src="script.js"></script>
