@@ -1,87 +1,42 @@
-let usuario = {
-  nome: "",
-  foto: "",
-  visitas: 0
-};
+let usuario = { nome: "" };
+let conversaAtual = "Geral";
 
 // LOGIN
 function entrar() {
-  const nome = document.getElementById("nome").value;
-
-  if (!nome) {
-    alert("Digite seu nome!");
-    return;
-  }
+  let nome = document.getElementById("nome").value;
+  if (!nome) return alert("Digite um nome");
 
   usuario.nome = nome;
-
-  let file = document.getElementById("foto").files[0];
-  if (file) {
-    usuario.foto = URL.createObjectURL(file);
-  }
 
   document.getElementById("login").classList.add("hidden");
   document.getElementById("app").classList.remove("hidden");
 
-  iniciarApp();
+  iniciar();
 }
 
 // INICIAR
-function iniciarApp() {
+function iniciar() {
+  gerarConversas();
   gerarStories();
   gerarFeed();
 }
 
-// STORIES
-function gerarStories() {
-  const container = document.getElementById("stories");
+// CONVERSAS
+function gerarConversas() {
+  let lista = document.getElementById("listaConversas");
 
-  for (let i = 0; i < 8; i++) {
-    let story = document.createElement("div");
-    story.classList.add("story");
+  for (let i = 1; i <= 5; i++) {
+    let div = document.createElement("div");
+    div.classList.add("conversa");
+    div.innerText = "Anônimo " + i;
 
-    story.style.backgroundImage =
-      `url(https://picsum.photos/100?random=${Math.random()})`;
+    div.onclick = () => {
+      conversaAtual = "Anônimo " + i;
+      document.getElementById("chatBox").innerHTML = "";
+    };
 
-    container.appendChild(story);
+    lista.appendChild(div);
   }
-}
-
-// FEED
-function gerarFeed() {
-  const feed = document.getElementById("feed");
-
-  for (let i = 0; i < 5; i++) {
-    let post = document.createElement("div");
-    post.classList.add("post");
-
-    let nome = document.createElement("p");
-    nome.innerText = "👤 Anônimo";
-    nome.onclick = abrirPerfil;
-
-    let img = document.createElement("img");
-    img.src = `https://picsum.photos/300/200?random=${Math.random()}`;
-
-    post.appendChild(nome);
-    post.appendChild(img);
-
-    feed.appendChild(post);
-  }
-}
-
-// PERFIL
-function abrirPerfil() {
-  usuario.visitas++;
-
-  document.getElementById("perfil").classList.remove("hidden");
-  document.getElementById("perfilNome").innerText = usuario.nome;
-  document.getElementById("perfilFoto").src = usuario.foto || "";
-  document.getElementById("visitas").innerText =
-    "Visitas: " + usuario.visitas;
-}
-
-function fecharPerfil() {
-  document.getElementById("perfil").classList.add("hidden");
 }
 
 // CHAT
@@ -96,4 +51,51 @@ function enviarMsg() {
 
   chat.appendChild(p);
   document.getElementById("msg").value = "";
+}
+
+// STORIES
+function gerarStories() {
+  let container = document.getElementById("stories");
+
+  for (let i = 0; i < 8; i++) {
+    let url = `https://picsum.photos/200?random=${Math.random()}`;
+
+    let story = document.createElement("div");
+    story.classList.add("story");
+    story.style.backgroundImage = `url(${url})`;
+
+    story.onclick = () => abrirStory(url);
+
+    container.appendChild(story);
+  }
+}
+
+function abrirStory(url) {
+  document.getElementById("storyImg").src = url;
+  document.getElementById("storyView").classList.remove("hidden");
+}
+
+function fecharStory() {
+  document.getElementById("storyView").classList.add("hidden");
+}
+
+// FEED
+function gerarFeed() {
+  let feed = document.getElementById("feed");
+
+  for (let i = 0; i < 5; i++) {
+    let post = document.createElement("div");
+    post.classList.add("post");
+
+    let nome = document.createElement("p");
+    nome.innerText = "👤 Anônimo";
+
+    let img = document.createElement("img");
+    img.src = `https://picsum.photos/300/200?random=${Math.random()}`;
+
+    post.appendChild(nome);
+    post.appendChild(img);
+
+    feed.appendChild(post);
+  }
 }
